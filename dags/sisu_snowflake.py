@@ -66,7 +66,7 @@ def fetch_sisu_api(**context):
 
 
 with dag:
-    query1_exec = SnowflakeOperator(
+    snowflake_test_connection = SnowflakeOperator(
         task_id="snowflake_test_connection",
         sql=['select 1;'],
         snowflake_conn_id=SNOWFLAKE_CONNECTION_ID,
@@ -74,4 +74,4 @@ with dag:
 
     count_query = PythonOperator(
         task_id="upload_data_from_sisu", python_callable=fetch_sisu_api)
-query1_exec >> count_query
+snowflake_test_connection >> count_query
