@@ -76,7 +76,7 @@ def create_sisu_results_table(dwh_hook: SnowflakeHook, table: Table, table_name:
 
 def fetch_sisu_api(**context):
     dwh_hook = SnowflakeHook(snowflake_conn_id=SNOWFLAKE_CONNECTION_ID)
-    table = pysisu.get_results(URL, ANALYSIS_ID, API_KEY)
+    table = pysisu.get_results(url=URL, analysis_id=ANALYSIS_ID, auth_key=API_KEY)
     create_sisu_results_table(dwh_hook, table, TABLE_NAME)
     upload_sisu_results(dwh_hook, table, TABLE_NAME)
 
