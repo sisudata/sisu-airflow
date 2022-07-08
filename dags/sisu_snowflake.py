@@ -31,6 +31,7 @@ TABLE_NAME = 'PUBLIC.SISU_ETL_EXAMPLE'
 URL = 'https://vip.sisudata.com'
 ANALYSIS_ID = int(os.environ.get('ANALYSIS_ID', 7340))
 SNOWFLAKE_CONNECTION_ID = 'snowflake_conn'
+PARAMS = {"top_drivers": "True", "limit": 300}
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -77,7 +78,7 @@ def create_sisu_results_table(dwh_hook: SnowflakeHook, table: Table, table_name:
 def fetch_sisu_api(**context):
     dwh_hook = SnowflakeHook(snowflake_conn_id=SNOWFLAKE_CONNECTION_ID)
     sisu = PySisu(api_key=API_KEY, url=URL)
-    table = sisu.get_results(analysis_id=ANALYSIS_ID)
+    table = sisu.get_results(analysis_id=ANALYSIS_ID, params=PARAMS)
     create_sisu_results_table(dwh_hook, table, TABLE_NAME)
     upload_sisu_results(dwh_hook, table, TABLE_NAME)
 
