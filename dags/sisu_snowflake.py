@@ -29,7 +29,7 @@ import os
 API_KEY = os.environ.get('SISU_API_KEY')
 TABLE_NAME = 'PUBLIC.SISU_ETL_EXAMPLE'
 URL = 'https://vip.sisudata.com'
-ANALYSIS_ID = 7340
+ANALYSIS_ID = int(os.environ.get('ANALYSIS_ID', 7340))
 SNOWFLAKE_CONNECTION_ID = 'snowflake_conn'
 
 logging.basicConfig(level=logging.INFO)
